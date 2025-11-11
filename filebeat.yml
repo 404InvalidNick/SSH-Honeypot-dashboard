@@ -1,0 +1,15 @@
+﻿@'
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/cowrie/cowrie.json
+    json.keys_under_root: true
+    json.add_error_key: true
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  index: "filebeat-cowrie-%{+yyyy.MM.dd}"
+
+logging.level: info
+'@ | Out-File -FilePath filebeat.yml -Encoding UTF8 -Force
